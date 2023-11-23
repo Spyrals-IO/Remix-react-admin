@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+
+  postgrest:
+    image: postgrest/postgrest:latest
+    environment:
+      PGRST_DB_URI: postgres://admin:admin@postgres:5432/mydatabase
+      PGRST_DB_SCHEMA: public
+      PGRST_DB_ANON_ROLE: admin
+      PGRST_SERVER_PORT: 3001
+    ports:
+      - "3001:3001"
